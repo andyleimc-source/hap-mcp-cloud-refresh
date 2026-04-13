@@ -25,7 +25,7 @@ This way you never need to manually update your token, even when switching betwe
 ### 1. Clone this repo
 
 ```bash
-git clone https://github.com/andylei18/hap-token-refresh-daily.git
+git clone https://github.com/andyleimc-source/hap-token-refresh-daily.git
 cd hap-token-refresh-daily
 ```
 
