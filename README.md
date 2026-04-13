@@ -73,6 +73,19 @@ Claude Code → stdio (JSON-RPC) → this proxy
 
 The token is cached at `~/.cache/mingdao-mcp-token.json`. This file is local to your machine and is never committed to the repo (see `.gitignore`).
 
+## Related Projects
+
+Both projects solve the MingDao MCP token refresh problem, but for different deployment scenarios:
+
+| | This repo | [mingdao-mcp-setup](https://github.com/andyleimc-source/mingdao-mcp-setup) |
+|---|---|---|
+| **How it runs** | Local machine (Node.js proxy) | Cloud / server (OAuth + cron) |
+| **Token source** | HAP workflow hook (daily key) | OAuth access_token + refresh_token |
+| **Refresh trigger** | On first use each day | Every 20 hours via cron |
+| **Requirements** | Node.js, account_id + key | macOS, OAuth credentials |
+
+If you have OAuth credentials (CLIENT_ID / CLIENT_SECRET / REFRESH_TOKEN), use **[mingdao-mcp-setup](https://github.com/andyleimc-source/mingdao-mcp-setup)** for a more automated, daemon-based setup.
+
 ## License
 
 MIT
