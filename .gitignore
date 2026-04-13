@@ -1,0 +1,17 @@
+# Local token cache (auto-generated, never commit)
+*.cache
+token*.json
+.token*
+mingdao-mcp-token.json
+
+# Credentials / env files
+.env
+.env.*
+config.local.json
+secrets.json
+
+# Dependencies
+node_modules/
+
+# macOS
+.DS_Store

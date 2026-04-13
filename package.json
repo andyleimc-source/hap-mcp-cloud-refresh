@@ -1,0 +1,13 @@
+{
+  "name": "hap-token-refresh-daily",
+  "version": "1.0.0",
+  "description": "MCP proxy for MingDao HAP with daily token refresh — for multi-device usage",
+  "main": "index.js",
+  "bin": {
+    "hap-token-refresh-daily": "./index.js"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "MIT"
+}
