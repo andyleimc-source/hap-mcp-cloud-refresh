@@ -82,10 +82,9 @@ function callMcp(token, body) {
     const bodyStr = JSON.stringify(body);
     const req = https.request({
       hostname: 'api2.mingdao.com',
-      path: '/mcp',
+      path: `/mcp?Authorization=Bearer%20${encodeURIComponent(token)}`,
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
         'Accept': 'application/json, text/event-stream',
         'Content-Length': Buffer.byteLength(bodyStr)
