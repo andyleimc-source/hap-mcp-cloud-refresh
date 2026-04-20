@@ -119,11 +119,17 @@ rl.on('line', async (line) => {
   if (!line.trim()) return;
   let msg;
   try { msg = JSON.parse(line); } catch { return; }
+  const isNotification = msg && msg.id === undefined;
   try {
     const token = await getToken();
     const response = await callMcp(token, msg);
+    if (isNotification) return;
     process.stdout.write(JSON.stringify(response) + '\n');
   } catch (err) {
+    if (isNotification) {
+      process.stderr.write('Notification error: ' + err.message + '\n');
+      return;
+    }
     process.stdout.write(JSON.stringify({
       jsonrpc: '2.0',
       id: msg?.id ?? null,
