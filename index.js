@@ -2,7 +2,7 @@
 /**
  * HAP MCP Daily Token Proxy
  * Fetches a fresh token each day and caches it until 23:59.
- * Usage: node index.js <account_id> <key>
+ * Usage: node index.js <account_id> <key> <appname>
  */
 const https = require('https');
 const fs = require('fs');
@@ -12,9 +12,10 @@ const readline = require('readline');
 
 const ACCOUNT_ID = process.argv[2] || process.env.MINGDAO_ACCOUNT_ID;
 const KEY = process.argv[3] || process.env.MINGDAO_KEY;
+const APPNAME = process.argv[4] || process.env.MINGDAO_APPNAME;
 
-if (!ACCOUNT_ID || !KEY) {
-  process.stderr.write('Usage: node index.js <account_id> <key>\n');
+if (!ACCOUNT_ID || !KEY || !APPNAME) {
+  process.stderr.write('Usage: node index.js <account_id> <key> <appname>\n');
   process.exit(1);
 }
 
@@ -43,7 +44,7 @@ function writeCachedToken(token) {
 
 function fetchToken() {
   return new Promise((resolve, reject) => {
-    const body = `account_id=${encodeURIComponent(ACCOUNT_ID)}&key=${encodeURIComponent(KEY)}`;
+    const body = `account_id=${encodeURIComponent(ACCOUNT_ID)}&key=${encodeURIComponent(KEY)}&appname=${encodeURIComponent(APPNAME)}`;
     const req = https.request({
       hostname: 'api.mingdao.com',
       path: '/workflow/hooks/NjlkYzQ5NGIwMzM0NzkwYjg4MWY4NTk5',

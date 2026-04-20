@@ -15,10 +15,14 @@ This way you never need to manually update your token, even when switching betwe
 ## Prerequisites
 
 - Node.js >= 16
-- You must have your **account_id** and **key** — these are issued by the application admin
+- You must have your **account_id**, **key**, and **appname** — these are issued by the application admin
 - **You must be added to the HAP application by an admin before use**
 
 > To get access, contact **Andy Lei** for instructions on how to join the application.
+
+### Why `appname`?
+
+Since 2026-04 the MingDao workflow hook requires an `appname` parameter so a single hook endpoint can route credentials for multiple HAP applications. Ask your admin which `appname` value your account is registered under.
 
 ## Setup
 
@@ -34,13 +38,14 @@ cd hap-token-refresh-daily
 Run the following command (user scope, available in all projects):
 
 ```bash
-claude mcp add -s user mingdao node /path/to/hap-token-refresh-daily/index.js YOUR_ACCOUNT_ID YOUR_KEY
+claude mcp add -s user mingdao node /path/to/hap-token-refresh-daily/index.js YOUR_ACCOUNT_ID YOUR_KEY YOUR_APPNAME
 ```
 
 Replace:
 - `/path/to/hap-token-refresh-daily/index.js` → full path to the cloned repo
 - `YOUR_ACCOUNT_ID` → your MingDao account ID
 - `YOUR_KEY` → your personal key issued by the admin
+- `YOUR_APPNAME` → the HAP application name your account is registered under
 
 > The command writes the server config to `~/.claude.json`. MCP servers do **not** go in `~/.claude/settings.json` — that file's schema does not accept an `mcpServers` field.
 
@@ -75,7 +80,7 @@ Both projects solve the MingDao MCP token refresh problem, but for different dep
 | **How it runs** | Local machine (Node.js proxy) | Cloud / server (OAuth + cron) |
 | **Token source** | HAP workflow hook (daily key) | OAuth access_token + refresh_token |
 | **Refresh trigger** | On first use each day | Every 20 hours via cron |
-| **Requirements** | Node.js, account_id + key | macOS, OAuth credentials |
+| **Requirements** | Node.js, account_id + key + appname | macOS, OAuth credentials |
 
 If you have OAuth credentials (CLIENT_ID / CLIENT_SECRET / REFRESH_TOKEN), use **[mingdao-mcp-setup](https://github.com/andyleimc-source/mingdao-mcp-setup)** for a more automated, daemon-based setup.
 
